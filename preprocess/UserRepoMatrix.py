@@ -63,6 +63,24 @@ class UserRepoMatrix(object):
 
         return user_repo_matrix
 
+    def filter_by_repo(self, repo_threshold):
+        matrix = self.matrix.copy()
+
+        user_cnt_of_repos = matrix.getnnz(axis=0)
+        matrix = matrix[:, user_cnt_of_repos > repo_threshold]
+
+        repo_cnt_of_users = matrix.getnnz(axis=1)
+
+        retained_row_indexes = np.where(repo_cnt_of_users > 0)
+        retained_col_indexes = np.where(user_cnt_of_repos > repo_threshold)
+
+        new_row_indexes = UserRepoMatrix.get_new_indexes(
+            self.user_indexes, retained_row_indexes[0])
+        new_col_indexes = UserRepoMatrix.get_new_indexes(
+            self.repo_indexes, retained_col_indexes[0])
+
+        return matrix, new_row_indexes, new_col_indexes
+
     def filter(self, user_threshold, repo_threshold):
         matrix = self.matrix.copy()
 
