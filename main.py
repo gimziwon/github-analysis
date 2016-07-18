@@ -14,10 +14,10 @@ def main():
     user_repo_matrix = pickle.load(open('/mnt/disk2/georgewang/user_repo_matrix.obj', 'rb'))
     print('user_repo_matrix', user_repo_matrix.matrix.shape)
 
-    #thresholds = {'user_threshold': 100, 'repo_threshold': 100}
+    thresholds = {'user_threshold': 10, 'repo_threshold': 10}
     #matrix, user_indexes, repo_indexes = user_repo_matrix.filter(**thresholds)
     matrix, user_indexes, repo_indexes \
-        = user_repo_matrix.filter_by_repo(repo_threshold=100)
+        = user_repo_matrix.filter_by_repo(**thresholds)
     print('matrix', matrix.shape)
 
     # do SVD
