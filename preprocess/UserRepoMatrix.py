@@ -8,7 +8,7 @@ class UserRepoMatrix(object):
         self.user_repo_count = None
         self.matrix = None
 
-    def fit(self, yrs, ignore_event):
+    def fit(self, yrs, keep_event):
         user_indexes = {}
         repo_indexes = {}
         user_repo_count = defaultdict(int)
@@ -29,7 +29,7 @@ class UserRepoMatrix(object):
 
                 event_name, user_name, repo_name = line[1], line[2], line[3]
 
-                if event_name in ignore_event:
+                if event_name not in keep_event:
                     continue
 
                 if user_name not in user_indexes:
@@ -100,6 +100,11 @@ class UserRepoMatrix(object):
             self.repo_indexes, retained_col_indexes[0])
 
         return matrix, new_row_indexes, new_col_indexes
+
+    @classmethod
+    def get_normalized_matrix(cls, matrix):
+        total_events_of_repos = matrix.sum(axis=0).clip(1e-15)
+        return matrix/np.tile(total_events_of_repos, (matrix.shape[0], 1))
 
     @classmethod
     def get_new_indexes(cls, indexes, retained_indexes):
