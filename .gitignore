@@ -67,3 +67,5 @@ target/
 
 #input json files
 *.json
+*.pyc
+*.swp
