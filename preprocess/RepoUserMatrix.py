@@ -1,7 +1,9 @@
 from collections import defaultdict
 from scipy.sparse import csc_matrix
 import numpy as np
+
 class RepoUserMatrix(object):
+
     def __init__(self):
         self.user_indexes = None
         self.repo_indexes = None

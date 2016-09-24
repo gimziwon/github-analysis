@@ -7,13 +7,13 @@ def parse_matrix():
     params = {'yrs': [2011, 2012, 2013, 2014, 2015, 2016],
               'keep_event': set(['PushEvent', 'PullRequestEvent', 'CommitCommentEvent'])}
 
-    user_repo_matrix = UserRepoMatrix()
+    user_repo_matrix = RepoUserMatrix()
     user_repo_matrix.fit(**params)
 
     return user_repo_matrix
 
 def parse_lang():
-    with open("/mnt/disk2/tmpgithub/repo.lang", "r") as reader:
+    with open("/mnt/disk2/georgewang/dataset/repo.lang", "r") as reader:
         lines = reader.read().splitlines()
 
     repo_lang = {}
