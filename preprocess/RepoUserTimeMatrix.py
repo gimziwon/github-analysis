@@ -15,8 +15,6 @@ class RepoUserTimeMatrix(object):
         repo_indexes = {}
         repo_user_time = defaultdict(float)
 
-        user_cnt = 0
-        repo_cnt = 0
         for yr in yrs:
             print('parsing {}'.format(yr))
             path = "/mnt/disk2/georgewang/dataset/data.{}".format(yr)
